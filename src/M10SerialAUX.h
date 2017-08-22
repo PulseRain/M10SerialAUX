@@ -25,9 +25,9 @@
 
 
 typedef struct {
-   void (*begin) (uint32_t); 
-   uint8_t (*available)();
-   uint8_t   (*read)();
+   void (*begin) (uint32_t) __reentrant; 
+   uint8_t (*available)() __reentrant;
+   uint8_t   (*read)() __reentrant;
    void (*_write) (uint8_t* buf, uint16_t length) __reentrant;
 } SERIAL_AUX_STRUCT;
 

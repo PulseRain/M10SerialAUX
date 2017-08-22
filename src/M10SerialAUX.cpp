@@ -35,7 +35,7 @@
 
 static uint32_t aux_serial_rate_factor = 833; // 96e6 / 115200 
 
-static void serial_aux_begin (uint32_t rate)
+static void serial_aux_begin (uint32_t rate) __reentrant
 {
     uint32_t tmp;
     
@@ -103,7 +103,7 @@ static void serial_aux_begin (uint32_t rate)
 //      function to send a byte to the serial port
 //----------------------------------------------------------------------------
 
-static void serial_aux_putchar (uint8_t c)
+static void serial_aux_putchar (uint8_t c) __reentrant
 {
     SCON_AUX &= 0xEF; // REN = 0;
  
@@ -128,7 +128,7 @@ static void serial_aux_putchar (uint8_t c)
 //      or not
 //----------------------------------------------------------------------------
 
-static uint8_t serial_aux_available()
+static uint8_t serial_aux_available() __reentrant
 {
 
     if (!(SCON_AUX & 0x10)) { // REN == 0;
@@ -186,7 +186,7 @@ static void serial_aux_write (uint8_t* buf, uint16_t length) __reentrant
 // Remarks:
 //      function to receive a byte from the serial port, unblocked fashion
 //----------------------------------------------------------------------------
-static uint8_t serial_aux_receive ()
+static uint8_t serial_aux_receive () __reentrant
 {   
     uint8_t k;
 
